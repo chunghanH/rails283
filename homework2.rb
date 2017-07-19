@@ -78,7 +78,6 @@ class RPS
     #印出結果
     get_player_gestures
   end
-
 end
 # ------------Main Program Starts Here ---------------------
 # 主程式只要一行即可
