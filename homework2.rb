@@ -8,11 +8,7 @@ end
 # 人類玩家的類別
 class Human < Player
   def get_gesture
-    begin
-      puts "please choose one of the following: R / P / S"
-      input = gets.chomp.upcase
-    end while !['R', 'P', 'S'].include?(input)
-    input
+    input = gets.chomp.upcase
   end
 end
 
@@ -25,8 +21,6 @@ end
 
 class RPS
   def initialize()
-    @p1
-    @p2
     intro
     begin
       show_message
@@ -36,23 +30,18 @@ class RPS
 	  
   def intro
     #印出開場畫面，告訴玩家遊戲規則
-    puts "<<< The Game Rock, Paper, Scissors >>>"
-    puts "=== About the rules ==="
-    puts "Rock beats Scissors"
-    puts "Paper beats Rock"
-    puts "Scissors beats Paper"
-    puts "======================="
+    puts "<The Game Rock, Paper, Scissors>"
   end
 
-  def decide(p1_input, p2_input)
+  def decide
     #邏輯判斷式    
     regex = /RS|SP|PR/
-    choice = "#{p1_input}#{p2_input}"
-    puts "#{@p1.name}:#{p1_input} #{@p2.name}:#{p2_input}"
+    choice = "#{@user_input}#{@com_input}"
+    puts "#{@user.name}:#{@user_input} #{@com.name}:#{@com_input}"
     if choice =~ regex
-      puts "#{@p1.name} wins the game!!!" 
+      puts "#{@user.name} wins the game!!!" 
     elsif choice.reverse =~ regex
-      puts "#{@p2.name} wins the game!!!"  
+      puts "#{@com.name} wins the game!!!"  
     else
       puts 'Draw...'  
     end
@@ -60,9 +49,13 @@ class RPS
 
   def get_player_gestures
     #取得玩家和電腦兩個物件的
-    @p1 = Human.new("Tom")
-    @p2 = Computer.new("Com")
-    decide(@p1.get_gesture, @p2.get_gesture)
+    @user = Human.new("Tom")
+    @com = Computer.new("Com")
+    begin
+      puts "please choose one of the following: R / P / S"
+      @user_input = @user.get_gesture
+    end while !['R', 'P', 'S'].include?(@user_input)
+    @com_input = @com.get_gesture
   end
 
   def continue?
@@ -77,6 +70,7 @@ class RPS
   def show_message
     #印出結果
     get_player_gestures
+    decide
   end
 end
 # ------------Main Program Starts Here ---------------------
