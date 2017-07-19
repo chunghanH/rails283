@@ -8,7 +8,11 @@ end
 # 人類玩家的類別
 class Human < Player
   def get_gesture
-    input = gets.chomp.upcase
+    begin
+      puts "please choose one of the following: R / P / S"
+      input = gets.chomp.upcase
+    end while !['R', 'P', 'S'].include?(input)
+    input
   end
 end
 
@@ -22,16 +26,18 @@ end
 class RPS
   def initialize
     intro
-    get_player_gestures
     begin
       show_message
     end while continue? == 'Y'
-    puts 'Hasta la Vista, Baby!' 
   end 
 	  
   def intro
     #印出開場畫面，告訴玩家遊戲規則
     puts "<The Game Rock, Paper, Scissors>"
+    begin
+      puts "Type Name:"
+      @name = gets.chomp.capitalize
+    end while @name.length == 0
   end
 
   def decide
@@ -50,12 +56,9 @@ class RPS
 
   def get_player_gestures
     #取得玩家和電腦兩個物件的
-    @user = Human.new("Tom")
+    @user = Human.new(@name)
     @com = Computer.new("Com")
-    begin
-      puts "please choose one of the following: R / P / S"
-      @user_input = @user.get_gesture
-    end while !['R', 'P', 'S'].include?(@user_input)
+    @user_input = @user.get_gesture
     @com_input = @com.get_gesture
   end
 
@@ -70,6 +73,7 @@ class RPS
 
   def show_message
     #印出結果
+    get_player_gestures
     decide
   end
 end
