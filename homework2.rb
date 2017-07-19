@@ -24,13 +24,12 @@ class Computer < Player
 end
 
 class RPS
-
   def initialize()
     @p1
     @p2
     intro
-  	begin
-  	  show_message
+    begin
+      show_message
     end while continue? == 'Y'
     puts 'Hasta la Vista, Baby!' 
   end 
@@ -70,7 +69,7 @@ class RPS
     #判斷玩家是否要繼續下一輪
     begin
       puts 'Play Again?: Y / N'
- 	  continue = gets.chomp.upcase
+      continue = gets.chomp.upcase
     end while !['Y', 'N'].include?(continue)
     continue
   end
