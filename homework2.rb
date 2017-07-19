@@ -20,8 +20,9 @@ class Computer < Player
 end
 
 class RPS
-  def initialize()
+  def initialize
     intro
+    get_player_gestures
     begin
       show_message
     end while continue? == 'Y'
@@ -69,7 +70,6 @@ class RPS
 
   def show_message
     #印出結果
-    get_player_gestures
     decide
   end
 end
